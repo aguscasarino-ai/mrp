@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "Category": {
+      "title": "Category",
+      "description": "Categoría de materia prima o producto",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Nombre de la categoría" }
+      },
+      "required": ["name"]
+    },
+    "Item": {
+      "title": "Item",
+      "description": "Materia prima o producto final",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Nombre del item" },
+        "type": { "type": "string", "enum": ["MATERIAL", "PRODUCT"], "description": "Tipo de item" },
+        "unit": { "type": "string", "description": "Unidad de medida" },
+        "stock": { "type": "number", "description": "Cantidad actual" },
+        "minStock": { "type": "number", "description": "Stock mínimo de alerta" },
+        "cost": { "type": "number", "description": "Costo de adquisición o producción" },
+        "price": { "type": "number", "description": "Precio de venta (solo para productos)" }
+      },
+      "required": ["name", "type", "unit", "stock", "minStock", "cost"]
+    },
+    "BOM": {
+      "title": "BOM",
+      "description": "Receta de un producto",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string", "description": "ID del producto final" },
+        "materials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemId": { "type": "string" },
+              "quantity": { "type": "number" }
+            }
+          }
+        }
+      },
+      "required": ["productId", "materials"]
+    },
+    "PurchaseOrder": {
+      "title": "PurchaseOrder",
+      "description": "Orden de compra a proveedor",
+      "type": "object",
+      "properties": {
+        "supplier": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["PENDING", "RECEIVED", "CANCELLED"] },
+        "items": { "type": "array" },
+        "total": { "type": "number" }
+      },
+      "required": ["supplier", "date", "status", "items", "total"]
+    },
+    "ProductionOrder": {
+      "title": "ProductionOrder",
+      "description": "Orden de fabricación",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "quantity": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["PLANNED", "IN_PROGRESS", "COMPLETED", "CANCELLED"] }
+      },
+      "required": ["productId", "quantity", "date", "status"]
+    },
+    "Sale": {
+      "title": "Sale",
+      "description": "Venta a cliente",
+      "type": "object",
+      "properties": {
+        "customer": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["COMPLETED", "CANCELLED"] }
+      },
+      "required": ["customer", "date", "items", "total", "status"]
+    }
+  },
+  "firestore": {
+    "/categories/{categoryId}": { "schema": "Category", "description": "Categorías de items" },
+    "/items/{itemId}": { "schema": "Item", "description": "Colección de materiales y productos" },
+    "/boms/{bomId}": { "schema": "BOM", "description": "Recetas de productos" },
+    "/purchaseOrders/{poId}": { "schema": "PurchaseOrder", "description": "Órdenes de compra" },
+    "/productionOrders/{moId}": { "schema": "ProductionOrder", "description": "Órdenes de producción" },
+    "/sales/{saleId}": { "schema": "Sale", "description": "Registro de ventas" }
+  }
+}

@@ -1,0 +1,82 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: items
+// Fields: name (string), sku (string), type (string), unit (string), stock (number), minStock (number), cost (number), price (number, optional)
+//
+// Collection: boms
+// Fields: productId (string), materials (array of {itemId, quantity})
+//
+// Collection: purchaseOrders
+// Fields: supplier (string), date (string), status (string), items (array), total (number)
+//
+// Collection: productionOrders
+// Fields: productId (string), quantity (number), date (string), status (string)
+//
+// Collection: sales
+// Fields: customer (string), date (string), items (array), total (number), status (string)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return request.auth.token.email_verified == true;
+    }
+
+    // Solo permitimos acceso al dueño del proyecto (email proporcionado en contexto)
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == "agustin.casarino@coinboxmarketing.com";
+    }
+
+    // Categories
+    match /categories/{categoryId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Items
+    match /items/{itemId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // BOMs
+    match /boms/{bomId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Purchase Orders
+    match /purchaseOrders/{poId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Production Orders
+    match /productionOrders/{moId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Sales
+    match /sales/{saleId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Settings
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}
