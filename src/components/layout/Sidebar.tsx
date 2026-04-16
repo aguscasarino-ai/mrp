@@ -43,7 +43,7 @@ const menuItems = [
 
 export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   const { settings } = useSettings();
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(true);
 
   return (
     <div 
