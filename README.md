@@ -1,20 +1,44 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# MI NEGOCIO PROPIO
 
-# Run and deploy your AI Studio app
+Sistema MRP minimalista para gestión de inventario, producción y ventas.
 
-This contains everything you need to run your app locally.
+## Características
 
-View your app in AI Studio: https://ai.studio/apps/a630614f-73ca-4f01-851d-717717656dcf
+- **Inventario:** Gestión de materias primas y productos terminados.
+- **Producción:** Creación de recetas (BOM) y órdenes de producción.
+- **Compras:** Gestión de órdenes de compra a proveedores.
+- **Ventas:** Registro de ventas y facturación.
+- **Dashboard:** Visualización de métricas clave del negocio.
 
-## Run Locally
+## Tecnologías Utilizadas
 
-**Prerequisites:**  Node.js
+- **Frontend:** React 19, Vite, Tailwind CSS 4.
+- **Backend:** Node.js, Express.
+- **Base de Datos:** Firebase Firestore.
+- **Autenticación:** Firebase Auth.
+- **UI:** Shadcn/UI, Lucide React, Motion.
 
+## Configuración Local
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. Clona el repositorio.
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Configura las variables de entorno:
+   Crea un archivo `.env` basado en `.env.example` y agrega tus credenciales de Firebase y Gemini API.
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+## Scripts Disponibles
+
+- `npm run dev`: Inicia el servidor de desarrollo (Express + Vite).
+- `npm run build`: Compila la aplicación para producción.
+- `npm run start`: Inicia la aplicación en modo producción.
+- `npm run lint`: Ejecuta el linter de TypeScript.
+
+## Licencia
+
+Este proyecto es privado.

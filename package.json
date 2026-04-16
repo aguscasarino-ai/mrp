@@ -1,5 +1,6 @@
 {
-  "name": "react-example",
+  "name": "mi-negocio-propio",
+  "description": "Sistema MRP minimalista para gestión de inventario, producción y ventas.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
